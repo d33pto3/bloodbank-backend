@@ -16,3 +16,10 @@ export const getUsers = async (req, res, next) => {
     res.status(500);
   }
 };
+
+export const createUsers = async (req, res, next) => {
+  try {
+  } catch (err) {
+    console.log(err);
+  }
+};
