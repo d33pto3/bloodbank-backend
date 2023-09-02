@@ -3,6 +3,10 @@ import { getUsers } from "../controller/users.js";
 
 const router = express.Router();
 
-router.get("/", getUsers);
+const userRoutes = (pool) => {
+  router.get("/", getUsers(pool));
 
-export default router;
+  return router;
+};
+
+export default userRoutes;

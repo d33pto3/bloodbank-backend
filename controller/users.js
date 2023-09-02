@@ -1,19 +1,14 @@
-import connection from "../db/index.js";
-
-export const getUsers = async (req, res, next) => {
+export const getUsers = (pool) => async (req, res, next) => {
   try {
-    connection.connect();
+    const connection = await pool.getConnection();
+    const [rows, fields] = await connection.execute("SELECT * FROM Users");
+    connection.release();
 
-    connection.query("SELECT * FROM Users", (err, rows, fielld) => {
-      if (err) throw err;
-
-      console.log("Users are: ", rows);
-      res.status(200).json({ users: rows });
-    });
-    connection.end();
+    console.log("Users are: ", rows);
+    res.status(200).json({ users: rows });
   } catch (err) {
     console.log(err);
-    res.status(500);
+    res.status(500).json({ error: "Error fetching products" });
   }
 };
 
