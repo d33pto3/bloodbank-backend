@@ -4,6 +4,7 @@ import cors from "cors";
 import createPool from "./services/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import signupRoutes from "./routes/signupRoutes.js";
+import loginRoutes from "./routes/loginRoutes.js";
 
 config();
 const app = express();
@@ -22,6 +23,7 @@ const pool = createPool(
 
 app.use("/api/users", userRoutes(pool));
 app.use("/api/signup", signupRoutes(pool));
+app.use("/api/login", loginRoutes(pool));
 
 app.listen(process.env.PORT || 8001, () => {
   console.log(`Listening on port ${process.env.PORT}`);
